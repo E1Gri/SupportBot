@@ -101,7 +101,7 @@ def find_similar(user_question: str):
     return scored_rows
 
 
-def ask_llm(user_question: str, web_search = False, white_list = None):
+def ask_llm(user_question: str, web_search = False, white_list = False):
     today = date.today().strftime("%d.%m.%Y")
 
     suggestions = find_similar(user_question)
@@ -122,7 +122,15 @@ f"""
 """
 )    
     
-    if suggestions[2]["score"] < 0.8 and web_search == True:
+    if suggestions[2]["score"] < 0.8 and web_search is True:
+        """
+        Пока в разработке
+        """
+        if white_list is True:
+            """
+            Пока в разработке
+            """
+            pass
         pass
     else:
         system_prompt = system_prompt +'\n' + suggestions[0]["chunk"]["original"] + '\n'+ suggestions[1]["chunk"]["original"] +'\n'+ suggestions[2]["chunk"]["original"]
